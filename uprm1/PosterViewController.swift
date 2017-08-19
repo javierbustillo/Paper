@@ -50,10 +50,21 @@ class PosterViewController: UIViewController, UITextViewDelegate {
         
         if(textFlag==0||postText.text.isEmpty){
             print("error should appear saying you need to write something")
-        }else{
-            let thisPost = Post(post: postText.text, steps: 0)
-            thisPost.poster()
-            dismiss(animated: true, completion: nil)
+        }
+        else if(postText.text!.characters.count>200){
+            print("Less characters dude")
+        }
+        else{
+            PFGeoPoint.geoPointForCurrentLocation(inBackground: { (point: PFGeoPoint?, error: Error?) in
+                if(error==nil){
+                    let thisPost = Post(post: self.postText.text, steps: 0, locat: point!)
+                    thisPost.poster()
+                    self.dismiss(animated: true, completion: nil)
+                }else{
+                    print("try again(insert error popup)")
+                }
+            })
+            
 
         }
         

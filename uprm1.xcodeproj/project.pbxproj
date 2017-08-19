@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F65CBABA1F4668EA0045DD7D /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65CBAB91F4668EA0045DD7D /* PostDetailViewController.swift */; };
 		F6B200531F462B4B002CA624 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B200521F462B4B002CA624 /* AppDelegate.swift */; };
 		F6B200551F462B4B002CA624 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B200541F462B4B002CA624 /* ViewController.swift */; };
 		F6B200581F462B4B002CA624 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6B200561F462B4B002CA624 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 		F6B200651F462FD7002CA624 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B200641F462FD7002CA624 /* TableViewCell.swift */; };
 		F6B200671F4635BF002CA624 /* PosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B200661F4635BF002CA624 /* PosterViewController.swift */; };
 		F6B200691F4637D1002CA624 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B200681F4637D1002CA624 /* Post.swift */; };
+		F6C098881F47C6BD00F16746 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C098871F47C6BD00F16746 /* CommentCell.swift */; };
 		F749371C779F3820CFFAF06E /* Pods_uprm1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5EEAD74313E239BDBC2F6F /* Pods_uprm1.framework */; };
 /* End PBXBuildFile section */
 
@@ -22,6 +24,7 @@
 		2640103034691582D0FA2499 /* Pods-uprm1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uprm1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-uprm1/Pods-uprm1.debug.xcconfig"; sourceTree = "<group>"; };
 		9E5EEAD74313E239BDBC2F6F /* Pods_uprm1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uprm1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E783FCFC94C3455547FD4C9D /* Pods-uprm1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uprm1.release.xcconfig"; path = "Pods/Target Support Files/Pods-uprm1/Pods-uprm1.release.xcconfig"; sourceTree = "<group>"; };
+		F65CBAB91F4668EA0045DD7D /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		F6B2004F1F462B4B002CA624 /* uprm1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uprm1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6B200521F462B4B002CA624 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6B200541F462B4B002CA624 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -32,6 +35,7 @@
 		F6B200641F462FD7002CA624 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		F6B200661F4635BF002CA624 /* PosterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterViewController.swift; sourceTree = "<group>"; };
 		F6B200681F4637D1002CA624 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		F6C098871F47C6BD00F16746 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,10 +91,12 @@
 				F6B200521F462B4B002CA624 /* AppDelegate.swift */,
 				F6B200541F462B4B002CA624 /* ViewController.swift */,
 				F6B200561F462B4B002CA624 /* Main.storyboard */,
+				F65CBAB91F4668EA0045DD7D /* PostDetailViewController.swift */,
 				F6B200591F462B4B002CA624 /* Assets.xcassets */,
 				F6B200641F462FD7002CA624 /* TableViewCell.swift */,
 				F6B2005B1F462B4B002CA624 /* LaunchScreen.storyboard */,
 				F6B200681F4637D1002CA624 /* Post.swift */,
+				F6C098871F47C6BD00F16746 /* CommentCell.swift */,
 				F6B200661F4635BF002CA624 /* PosterViewController.swift */,
 				F6B2005E1F462B4B002CA624 /* Info.plist */,
 			);
@@ -222,10 +228,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6B200651F462FD7002CA624 /* TableViewCell.swift in Sources */,
+				F65CBABA1F4668EA0045DD7D /* PostDetailViewController.swift in Sources */,
 				F6B200671F4635BF002CA624 /* PosterViewController.swift in Sources */,
 				F6B200551F462B4B002CA624 /* ViewController.swift in Sources */,
 				F6B200531F462B4B002CA624 /* AppDelegate.swift in Sources */,
 				F6B200691F4637D1002CA624 /* Post.swift in Sources */,
+				F6C098881F47C6BD00F16746 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

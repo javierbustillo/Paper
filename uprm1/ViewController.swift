@@ -21,8 +21,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         
         // Do any additional setup after loading the view.
-        refreshData()
-        tableView.reloadData()
+        PFGeoPoint.geoPointForCurrentLocation { (point:PFGeoPoint?, error:Error?) in
+            if((error) != nil){
+                print(error?.localizedDescription)
+            }else{
+                self.refreshData(point: point!)
+                self.tableView.reloadData()
+
+            }
+        }
+
+        
         let refreshControl = UIRefreshControl()
         
         refreshControl.addTarget(self, action:#selector(refreshAction),for: UIControlEvents.valueChanged)
@@ -33,7 +42,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //refreshData()
+        PFGeoPoint.geoPointForCurrentLocation { (point:PFGeoPoint?, error:Error?) in
+            if((error) != nil){
+                print(error?.localizedDescription)
+            }else{
+                self.refreshData(point: point!)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,26 +83,40 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func refreshAction(refreshControl: UIRefreshControl) {
-        let url = NSURL(refreshData())
-        let request = URLRequest(url: url as URL)
+        
+        PFGeoPoint.geoPointForCurrentLocation { (point:PFGeoPoint?, error:Error?) in
+            if((error) != nil){
+                print(error?.localizedDescription)
+            }else{
+                let url = NSURL(self.refreshData(point: point!))
+                let request = URLRequest(url: url as URL)
+                
+                
+                let session = URLSession(
+                    configuration: URLSessionConfiguration.default,
+                    delegate:nil,
+                    delegateQueue:OperationQueue.main
+                )
+                
+                let task : URLSessionDataTask = session.dataTask(with: request,completionHandler: { (data, response, error) in
+                    
+                    self.tableView.reloadData()
+                    refreshControl.endRefreshing()
+                });
+                task.resume()
+
+                
+            }
+        }
+        
+           }
+    func refreshData(point: PFGeoPoint){
+       
         
         
-        let session = URLSession(
-            configuration: URLSessionConfiguration.default,
-            delegate:nil,
-            delegateQueue:OperationQueue.main
-        )
-        
-        let task : URLSessionDataTask = session.dataTask(with: request,completionHandler: { (data, response, error) in
-            
-            self.tableView.reloadData()
-            refreshControl.endRefreshing()
-        });
-        task.resume()
-    }
-    func refreshData(){
         let query = PFQuery(className: "Post")
         query.order(byDescending: "createdAt")
+        query.whereKey("locat", nearGeoPoint: point, withinMiles: 2)
         query.limit = 20
         
         query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
