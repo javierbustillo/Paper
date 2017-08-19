@@ -52,13 +52,18 @@
                                         <connections>
                                             <outlet property="dateLabel" destination="0Mi-bg-Meq" id="mwb-xW-PB3"/>
                                             <outlet property="postLabel" destination="XwZ-lf-Cio" id="78O-yj-fTa"/>
-                                            <segue destination="gyq-gq-3Wa" kind="push" id="Zh2-79-D3v"/>
+                                            <segue destination="gyq-gq-3Wa" kind="push" identifier="SegueToDetail" id="Zh2-79-D3v"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wix-aS-Vnd">
-                                <rect key="frame" x="328" y="28" width="31" height="30"/>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="9p2-BP-hrE">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="cEI-g3-F9N">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wix-aS-Vnd">
+                                <rect key="frame" x="328" y="-41" width="31" height="126"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Post"/>
                                 <connections>
@@ -66,10 +71,8 @@
                                     <segue destination="KIN-Z2-Asl" kind="presentation" id="amA-xW-D3V"/>
                                 </connections>
                             </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="9p2-BP-hrE"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="5y5-6A-19n" id="96c-C7-zYv"/>
                     </connections>
@@ -102,13 +105,33 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="128" id="nmi-kO-gmT">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="128" id="nmi-kO-gmT" customClass="CommentCell" customModule="uprm1" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="128"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nmi-kO-gmT" id="Sb4-Ma-TBN">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="127.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQN-DG-W4Y">
+                                                    <rect key="frame" x="8" y="8" width="359" height="74"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8B-T3-aIF">
+                                                    <rect key="frame" x="8" y="90" width="359" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="commentLabel" destination="OQN-DG-W4Y" id="Vqe-D7-zPd"/>
+                                            <outlet property="dateLabel" destination="u8B-T3-aIF" id="GWm-d6-Rfs"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -116,6 +139,9 @@
                                 <rect key="frame" x="154" y="629" width="67" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Comment"/>
+                                <connections>
+                                    <segue destination="s2f-dk-RRa" kind="presentation" identifier="segueToCommenter" id="pGq-lq-6oD"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -123,6 +149,7 @@
                     <navigationItem key="navigationItem" id="uvF-Rb-4fw"/>
                     <connections>
                         <outlet property="postText" destination="biD-73-jvD" id="bsX-Gy-Yhi"/>
+                        <outlet property="tableView" destination="xsV-nt-Uc6" id="Wwj-HU-Mhw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDS-CB-zHX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -182,7 +209,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-225" y="926"/>
+            <point key="canvasLocation" x="191" y="1047"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="omE-Zn-KyA">
@@ -201,6 +228,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T2i-4a-TVm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-224.80000000000001" y="175.86206896551727"/>
+        </scene>
+        <!--Commenter View Controller-->
+        <scene sceneID="hoz-oK-Jfi">
+            <objects>
+                <viewController id="s2f-dk-RRa" customClass="CommenterViewController" customModule="uprm1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hJj-ym-fOV"/>
+                        <viewControllerLayoutGuide type="bottom" id="FCy-aw-uqL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7pG-ys-6yd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7c5-AH-Nwu">
+                                <rect key="frame" x="16" y="79" width="343" height="290"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQL-mt-5EP">
+                                <rect key="frame" x="172" y="377" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Post"/>
+                                <connections>
+                                    <action selector="postButton:" destination="s2f-dk-RRa" eventType="touchUpInside" id="7MH-x3-6ry"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scB-Aj-t2c">
+                                <rect key="frame" x="16" y="20" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="backButton:" destination="s2f-dk-RRa" eventType="touchUpInside" id="fhc-Cb-f4U"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="W3b-Rp-KrZ" appends="YES" id="LpE-s6-XUn"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="7c5-AH-Nwu" id="MM6-p4-chm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wKG-F4-Mhi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="W3b-Rp-KrZ">
+                    <connections>
+                        <action selector="tap:" destination="s2f-dk-RRa" id="wkE-Nh-wXH"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2255" y="176"/>
         </scene>
     </scenes>
 </document>

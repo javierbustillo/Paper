@@ -45,6 +45,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         PFGeoPoint.geoPointForCurrentLocation { (point:PFGeoPoint?, error:Error?) in
             if((error) != nil){
                 print(error?.localizedDescription)
+                print("WHAT")
             }else{
                 self.refreshData(point: point!)
             }
@@ -133,7 +134,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
+        
+        
+        if segue.identifier == "SegueToDetail"
+        {
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPath(for: cell)
+            
+            let index = indexPath!.row
+            
+            
+            let postDetailVC = segue.destination as! PostDetailViewController
+            
+            postDetailVC.posts = posts
+            postDetailVC.index = index
+            
+        }
+    }
 
 }
 

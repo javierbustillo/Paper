@@ -17,6 +17,8 @@
 		F6B200671F4635BF002CA624 /* PosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B200661F4635BF002CA624 /* PosterViewController.swift */; };
 		F6B200691F4637D1002CA624 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B200681F4637D1002CA624 /* Post.swift */; };
 		F6C098881F47C6BD00F16746 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C098871F47C6BD00F16746 /* CommentCell.swift */; };
+		F6C0988A1F47CA0100F16746 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C098891F47CA0100F16746 /* Comment.swift */; };
+		F6C0988C1F47CD5400F16746 /* CommenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C0988B1F47CD5400F16746 /* CommenterViewController.swift */; };
 		F749371C779F3820CFFAF06E /* Pods_uprm1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5EEAD74313E239BDBC2F6F /* Pods_uprm1.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,8 @@
 		F6B200661F4635BF002CA624 /* PosterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterViewController.swift; sourceTree = "<group>"; };
 		F6B200681F4637D1002CA624 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		F6C098871F47C6BD00F16746 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		F6C098891F47CA0100F16746 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		F6C0988B1F47CD5400F16746 /* CommenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommenterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,8 @@
 				F6B2005B1F462B4B002CA624 /* LaunchScreen.storyboard */,
 				F6B200681F4637D1002CA624 /* Post.swift */,
 				F6C098871F47C6BD00F16746 /* CommentCell.swift */,
+				F6C098891F47CA0100F16746 /* Comment.swift */,
+				F6C0988B1F47CD5400F16746 /* CommenterViewController.swift */,
 				F6B200661F4635BF002CA624 /* PosterViewController.swift */,
 				F6B2005E1F462B4B002CA624 /* Info.plist */,
 			);
@@ -230,7 +236,9 @@
 				F6B200651F462FD7002CA624 /* TableViewCell.swift in Sources */,
 				F65CBABA1F4668EA0045DD7D /* PostDetailViewController.swift in Sources */,
 				F6B200671F4635BF002CA624 /* PosterViewController.swift in Sources */,
+				F6C0988A1F47CA0100F16746 /* Comment.swift in Sources */,
 				F6B200551F462B4B002CA624 /* ViewController.swift in Sources */,
+				F6C0988C1F47CD5400F16746 /* CommenterViewController.swift in Sources */,
 				F6B200531F462B4B002CA624 /* AppDelegate.swift in Sources */,
 				F6B200691F4637D1002CA624 /* Post.swift in Sources */,
 				F6C098881F47C6BD00F16746 /* CommentCell.swift in Sources */,
