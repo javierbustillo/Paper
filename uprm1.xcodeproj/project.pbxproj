@@ -92,9 +92,9 @@
 		F6B200511F462B4B002CA624 /* uprm1 */ = {
 			isa = PBXGroup;
 			children = (
+				F6B200561F462B4B002CA624 /* Main.storyboard */,
 				F6B200521F462B4B002CA624 /* AppDelegate.swift */,
 				F6B200541F462B4B002CA624 /* ViewController.swift */,
-				F6B200561F462B4B002CA624 /* Main.storyboard */,
 				F65CBAB91F4668EA0045DD7D /* PostDetailViewController.swift */,
 				F6B200591F462B4B002CA624 /* Assets.xcassets */,
 				F6B200641F462FD7002CA624 /* TableViewCell.swift */,

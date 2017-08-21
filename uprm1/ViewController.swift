@@ -11,7 +11,11 @@ import Parse
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
+    
+    
     var posts: [PFObject]!
+    var vote: [PFObject]!
+
 
     override func viewDidLoad() {
         
@@ -36,7 +40,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         refreshControl.addTarget(self, action:#selector(refreshAction),for: UIControlEvents.valueChanged)
         self.tableView.insertSubview(refreshControl, at: 0)
-
+        
+       
         
         
     }
@@ -51,6 +56,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
     }
+    
+   
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -75,6 +82,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.posts = posts![indexPath.row]
         cell.selectionStyle = .none
         
+        cell.upVote.tag = indexPath.row
+        cell.downVote.tag = indexPath.row
+
+        
         return cell
         
     }
@@ -87,7 +98,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         PFGeoPoint.geoPointForCurrentLocation { (point:PFGeoPoint?, error:Error?) in
             if((error) != nil){
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
             }else{
                 let url = NSURL(self.refreshData(point: point!))
                 let request = URLRequest(url: url as URL)
@@ -128,6 +139,65 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } else {
                 // handle error
                 print("error")
+                
+            }
+        }
+
+    }
+    @IBAction func upVote(_ sender: UIButton) {
+        let query = PFQuery(className: "Upvoted")
+        query.whereKey("user", equalTo: PFUser.current()?.username! as Any)
+        query.whereKey("post", equalTo: posts[sender.tag].objectId as Any)
+        
+        query.countObjectsInBackground { (count: Int32, error: Error?) in
+            if(count==0){
+                self.posts[sender.tag].incrementKey("steps")
+                self.posts[sender.tag].saveInBackground()
+                print("huh this worked?")
+                
+                let voted = PFObject(className: "Upvoted")
+                voted.setObject(PFUser.current()?.username! as Any, forKey: "user")
+                voted.setObject(self.posts[sender.tag].objectId!, forKey: "post")
+                voted.saveInBackground()
+
+            }else{
+                query.getFirstObjectInBackground(block: { (vote: PFObject?,error: Error?) in
+                    if(error==nil){
+                        vote?.deleteInBackground()
+                        self.posts[sender.tag].incrementKey("steps", byAmount: -1)
+                        self.posts[sender.tag].saveInBackground()
+                        print("this works now, you can upvote it again")
+                    }
+                })
+            }
+        }
+    }
+    @IBAction func downVote(_ sender: UIButton) {
+       
+        let query = PFQuery(className: "Downvoted")
+        query.whereKey("user", equalTo: PFUser.current()?.username! as Any)
+        query.whereKey("post", equalTo: posts[sender.tag].objectId as Any)
+        
+        query.countObjectsInBackground { (count: Int32, error: Error?) in
+            if(count==0){
+                self.posts[sender.tag].incrementKey("steps", byAmount: -1)
+                self.posts[sender.tag].saveInBackground()
+                print("huh this worked?")
+                
+                let voted = PFObject(className: "Downvoted")
+                voted.setObject(PFUser.current()?.username! as Any, forKey: "user")
+                voted.setObject(self.posts[sender.tag].objectId!, forKey: "post")
+                voted.saveInBackground()
+                
+            }else{
+                query.getFirstObjectInBackground(block: { (vote: PFObject?,error: Error?) in
+                    if(error==nil){
+                        vote?.deleteInBackground()
+                        self.posts[sender.tag].incrementKey("steps")
+                        self.posts[sender.tag].saveInBackground()
+                        print("this works now, you can downvote it again")
+                    }
+                })
                 
             }
         }

@@ -34,7 +34,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Post" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XwZ-lf-Cio">
-                                                    <rect key="frame" x="8" y="8" width="119" height="21"/>
+                                                    <rect key="frame" x="65" y="8" width="277" height="87"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -47,11 +47,37 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lal-h7-NvY">
+                                                    <rect key="frame" x="16" y="8" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="up"/>
+                                                    <connections>
+                                                        <action selector="upVote:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VW1-a5-kpU"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iry-uw-929">
+                                                    <rect key="frame" x="7" y="65" width="57" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="down"/>
+                                                    <connections>
+                                                        <action selector="downVote:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vqA-Wa-m7k"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zy-ka-X1C">
+                                                    <rect key="frame" x="290" y="103" width="44" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="0Mi-bg-Meq" id="mwb-xW-PB3"/>
+                                            <outlet property="downVote" destination="Iry-uw-929" id="xXF-fU-7a7"/>
                                             <outlet property="postLabel" destination="XwZ-lf-Cio" id="78O-yj-fTa"/>
+                                            <outlet property="stepsLabel" destination="6zy-ka-X1C" id="8gh-lK-Yo6"/>
+                                            <outlet property="upVote" destination="Lal-h7-NvY" id="cVY-oq-1i1"/>
                                             <segue destination="gyq-gq-3Wa" kind="push" identifier="SegueToDetail" id="Zh2-79-D3v"/>
                                         </connections>
                                     </tableViewCell>
@@ -209,7 +235,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="191" y="1047"/>
+            <point key="canvasLocation" x="714" y="916"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="omE-Zn-KyA">
@@ -278,7 +304,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wKG-F4-Mhi" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="W3b-Rp-KrZ">
                     <connections>
-                        <action selector="tap:" destination="s2f-dk-RRa" id="wkE-Nh-wXH"/>
+                        <action selector="onTap:" destination="s2f-dk-RRa" id="4y5-lz-QZV"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

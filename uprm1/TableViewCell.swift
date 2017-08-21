@@ -12,12 +12,17 @@ class TableViewCell: UITableViewCell {
 
     @IBOutlet weak var postLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var stepsLabel: UILabel!
+    @IBOutlet weak var upVote: UIButton!
+    @IBOutlet weak var downVote: UIButton!
+    
     
     var posts: PFObject!{
         didSet{
             
             postLabel.text = posts["post"] as? String
             dateLabel.text = "\(returnTime(createdAt: posts.createdAt!))" as String
+            stepsLabel.text = ("\(posts["steps"]!)") as String
         }
     }
     
