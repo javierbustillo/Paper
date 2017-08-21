@@ -123,9 +123,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
            }
     func refreshData(point: PFGeoPoint){
-       
-        
-        
         let query = PFQuery(className: "Post")
         query.order(byDescending: "createdAt")
         query.whereKey("locat", nearGeoPoint: point, withinMiles: 2)
@@ -145,7 +142,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     @IBAction func upVote(_ sender: UIButton) {
-        let query = PFQuery(className: "Upvoted")
+        let query = PFQuery(className: "Voted")
         query.whereKey("user", equalTo: PFUser.current()?.username! as Any)
         query.whereKey("post", equalTo: posts[sender.tag].objectId as Any)
         
@@ -155,18 +152,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.posts[sender.tag].saveInBackground()
                 print("huh this worked?")
                 
-                let voted = PFObject(className: "Upvoted")
+                let voted = PFObject(className: "Voted")
                 voted.setObject(PFUser.current()?.username! as Any, forKey: "user")
                 voted.setObject(self.posts[sender.tag].objectId!, forKey: "post")
+                voted.setObject("upvote", forKey: "kind")
                 voted.saveInBackground()
 
             }else{
-                query.getFirstObjectInBackground(block: { (vote: PFObject?,error: Error?) in
+                query.getFirstObjectInBackground(block: { (vote:PFObject?, error: Error?) in
                     if(error==nil){
-                        vote?.deleteInBackground()
-                        self.posts[sender.tag].incrementKey("steps", byAmount: -1)
-                        self.posts[sender.tag].saveInBackground()
-                        print("this works now, you can upvote it again")
+                        if (vote?["kind"] as! String == "upvote"){
+                            vote?.deleteInBackground()
+                            self.posts[sender.tag].incrementKey("steps", byAmount: -1)
+                            self.posts[sender.tag].saveInBackground()
+                            print("this works now, you can upvote it again")
+                        }
+                        if(vote?["kind"] as! String == "downvote"){
+                            vote?.setObject("upvote", forKey: "kind")
+                            self.posts[sender.tag].incrementKey("steps", byAmount: 2)
+                            self.posts[sender.tag].saveInBackground()
+                            vote?.saveInBackground()
+                        }
                     }
                 })
             }
@@ -174,7 +180,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     @IBAction func downVote(_ sender: UIButton) {
        
-        let query = PFQuery(className: "Downvoted")
+        let query = PFQuery(className: "Voted")
         query.whereKey("user", equalTo: PFUser.current()?.username! as Any)
         query.whereKey("post", equalTo: posts[sender.tag].objectId as Any)
         
@@ -184,21 +190,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.posts[sender.tag].saveInBackground()
                 print("huh this worked?")
                 
-                let voted = PFObject(className: "Downvoted")
+                let voted = PFObject(className: "Voted")
                 voted.setObject(PFUser.current()?.username! as Any, forKey: "user")
                 voted.setObject(self.posts[sender.tag].objectId!, forKey: "post")
+                voted.setObject("downvote", forKey: "kind")
                 voted.saveInBackground()
                 
+                
             }else{
-                query.getFirstObjectInBackground(block: { (vote: PFObject?,error: Error?) in
+                query.getFirstObjectInBackground(block: { (vote:PFObject?, error: Error?) in
                     if(error==nil){
-                        vote?.deleteInBackground()
-                        self.posts[sender.tag].incrementKey("steps")
-                        self.posts[sender.tag].saveInBackground()
-                        print("this works now, you can downvote it again")
+                        if (vote?["kind"] as! String == "downvote"){
+                            vote?.deleteInBackground()
+                            self.posts[sender.tag].incrementKey("steps", byAmount: 1)
+                            self.posts[sender.tag].saveInBackground()
+                            print("this works now, you can upvote it again")
+                        }
+                        if(vote?["kind"] as! String == "upvote"){
+                            vote?.setObject("downvote", forKey: "kind")
+                            self.posts[sender.tag].incrementKey("steps", byAmount:-2)
+                            self.posts[sender.tag].saveInBackground()
+                            vote?.saveInBackground()
+                            print("should be -2")
+                        }
                     }
                 })
-                
             }
         }
 
