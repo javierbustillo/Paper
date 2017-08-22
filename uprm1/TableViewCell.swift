@@ -15,7 +15,7 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var stepsLabel: UILabel!
     @IBOutlet weak var upVote: UIButton!
     @IBOutlet weak var downVote: UIButton!
-    
+    var upvoted: Bool! = false
     
     var posts: PFObject!{
         didSet{
