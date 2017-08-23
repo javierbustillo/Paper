@@ -23,7 +23,16 @@ class TableViewCell: UITableViewCell {
             postLabel.text = posts["post"] as? String
             dateLabel.text = "\(returnTime(createdAt: posts.createdAt!))" as String
             stepsLabel.text = ("\(posts["steps"]!)") as String
+            var voters: [String]
+            voters = posts.object(forKey: "upVoters") as! [String]
+            if voters.contains((PFUser.current()?.username)!){
+                posts.remove(PFUser.current()?.username as Any, forKey: "upVoters")
+                upvoted = true
+            }
+        
+            
         }
+        
     }
     
     func returnTime(createdAt : Date) -> String{

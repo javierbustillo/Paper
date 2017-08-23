@@ -148,9 +148,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         
+        
         let query = PFQuery(className: "Voted")
         query.whereKey("user", equalTo: PFUser.current()?.username! as Any)
         query.whereKey("post", equalTo: posts[sender.tag].objectId as Any)
+        
         
         query.countObjectsInBackground { (count: Int32, error: Error?) in
             if(count==0){
