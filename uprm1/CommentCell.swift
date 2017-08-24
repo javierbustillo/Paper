@@ -12,10 +12,32 @@ class CommentCell: UITableViewCell {
 
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var upVote: UIButton!
+    @IBOutlet weak var downVote: UIButton!
+    @IBOutlet weak var stepsLabel: UILabel!
+   
+    var upVoted: Bool!
+    var downVoted: Bool!
+    var upVoters: [String]!
+    var downVoters: [String]!
+    let userName = PFUser.current()?.username
+    
     var comments: PFObject!{
         didSet{
             commentLabel.text = comments["comment"] as? String
             dateLabel.text =  "\(returnTime(createdAt: comments.createdAt!))" as String
+            stepsLabel.text = ("\(comments["steps"]!)")as String
+            upVoters = comments["upVoters"] as! [String]?
+            downVoters = comments["downVoters"] as! [String]?
+            
+            if upVoters.contains((userName)!){
+                upVoted = true
+                //change button
+            }
+            if downVoters.contains(userName!){
+                downVoted = true
+                //change button
+            }
 
         }
     }

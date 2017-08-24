@@ -14,6 +14,8 @@ class Comment: NSObject {
     var comment: String?
     var steps: Int?
     var originalID: String?
+    var upVoters: [String]? = []
+    var downVoters: [String]? = []
     
     init(comment: String, steps: Int, originalID: String){
         self.comment = comment
@@ -26,6 +28,8 @@ class Comment: NSObject {
         comment.setObject(self.comment!, forKey: "comment")
         comment.setObject(steps!, forKey: "steps")
         comment.setObject(originalID!, forKey: "originalID")
+        comment.setObject(upVoters!, forKey: "upVoters")
+        comment.setObject(downVoters!, forKey: "downVoters")
         
         comment.saveInBackground { (success: Bool, error: Error?) in
             if(success){

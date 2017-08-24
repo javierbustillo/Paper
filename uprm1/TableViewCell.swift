@@ -30,13 +30,12 @@ class TableViewCell: UITableViewCell {
             upVoters = posts["upVoters"] as! [String]?
             downVoters = posts["downVoters"] as! [String]?
             if upVoters.contains((userName)!){
-                //posts.remove(PFUser.current()?.username as Any, forKey: "upVoters")
-                print("upvoter")
                 upvoted = true
+                //change button
             }
             if downVoters.contains(userName!){
                 downVoted = true
-                print("downvoter")
+                //change button
             }
         
             
