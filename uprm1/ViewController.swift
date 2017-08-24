@@ -143,7 +143,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     @IBAction func upVote(_ sender: UIButton) {
-        
         let upVoters = self.posts[sender.tag]["upVoters"] as! [String]
         let downVoters = self.posts[sender.tag]["downVoters"] as! [String]
         let userName = PFUser.current()?.username
@@ -168,8 +167,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     @IBAction func downVote(_ sender: UIButton) {
-        /* major overhaul needed, no voted class. Store data inside the post object
-         Also probably might need to use the localDataStore or whatever it's called*/
         let upVoters = self.posts[sender.tag]["upVoters"] as! [String]
         let downVoters = self.posts[sender.tag]["downVoters"] as! [String]
         let userName = PFUser.current()?.username
