@@ -15,7 +15,11 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var stepsLabel: UILabel!
     @IBOutlet weak var upVote: UIButton!
     @IBOutlet weak var downVote: UIButton!
+    var upVoters: [String]! = []
+    var downVoters: [String]! = []
     var upvoted: Bool! = false
+    var downVoted: Bool! = false
+    let userName = PFUser.current()?.username
     
     var posts: PFObject!{
         didSet{
@@ -23,13 +27,19 @@ class TableViewCell: UITableViewCell {
             postLabel.text = posts["post"] as? String
             dateLabel.text = "\(returnTime(createdAt: posts.createdAt!))" as String
             stepsLabel.text = ("\(posts["steps"]!)") as String
-            var voters: [String]
-            voters = posts.object(forKey: "upVoters") as! [String]
-            if voters.contains((PFUser.current()?.username)!){
-                posts.remove(PFUser.current()?.username as Any, forKey: "upVoters")
+            upVoters = posts["upVoters"] as! [String]?
+            downVoters = posts["downVoters"] as! [String]?
+            if upVoters.contains((userName)!){
+                //posts.remove(PFUser.current()?.username as Any, forKey: "upVoters")
+                print("upvoter")
                 upvoted = true
             }
+            if downVoters.contains(userName!){
+                downVoted = true
+                print("downvoter")
+            }
         
+            
             
         }
         

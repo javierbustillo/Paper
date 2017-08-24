@@ -124,6 +124,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
            }
     func refreshData(point: PFGeoPoint){
         let query = PFQuery(className: "Post")
+        
         query.order(byDescending: "createdAt")
         query.whereKey("locat", nearGeoPoint: point, withinMiles: 2)
         query.limit = 20
@@ -142,99 +143,52 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     @IBAction func upVote(_ sender: UIButton) {
-        /* major overhaul needed, no voted class. Store data inside the post object
-        Also probably might need to use the localDataStore or whatever it's called*/
         
-        
-        
-        
-        
-        let query = PFQuery(className: "Voted")
-        query.whereKey("user", equalTo: PFUser.current()?.username! as Any)
-        query.whereKey("post", equalTo: posts[sender.tag].objectId as Any)
-        
-        
-        query.countObjectsInBackground { (count: Int32, error: Error?) in
-            if(count==0){
-                self.posts[sender.tag].incrementKey("steps")
-                self.posts[sender.tag].saveInBackground()
-                print("huh this worked?")
-                
-                let voted = PFObject(className: "Voted")
-                voted.setObject(PFUser.current()?.username! as Any, forKey: "user")
-                voted.setObject(self.posts[sender.tag].objectId!, forKey: "post")
-                voted.setObject("upvote", forKey: "kind")
-                voted.saveInBackground()
+        let upVoters = self.posts[sender.tag]["upVoters"] as! [String]
+        let downVoters = self.posts[sender.tag]["downVoters"] as! [String]
+        let userName = PFUser.current()?.username
+        if(upVoters.contains(userName!)){
+            self.posts[sender.tag].remove(userName!, forKey: "upVoters")
+            self.posts[sender.tag].incrementKey("steps", byAmount: -1)
+            self.posts[sender.tag].saveInBackground()
+            print("unUpvoted")
+            
+        }else if(!upVoters.contains(userName!) && !downVoters.contains(userName!)) {
+            self.posts[sender.tag].add(userName!, forKey: "upVoters")
+            self.posts[sender.tag].incrementKey("steps")
+            self.posts[sender.tag].saveInBackground()
+            print("upvoted")
+        }else if(downVoters.contains(userName!)){
+            self.posts[sender.tag].remove(userName!, forKey: "downVoters")
+            self.posts[sender.tag].add(userName!, forKey: "upVoters")
+            self.posts[sender.tag].incrementKey("steps", byAmount: 2)
+            self.posts[sender.tag].saveInBackground()
 
-            }else{
-                query.getFirstObjectInBackground(block: { (vote:PFObject?, error: Error?) in
-                    if(error==nil){
-                        if (vote?["kind"] as! String == "upvote"){
-                            vote?.deleteInBackground()
-                            self.posts[sender.tag].incrementKey("steps", byAmount: -1)
-                            self.posts[sender.tag].saveInBackground()
-                            print("this works now, you can upvote it again")
-                        }
-                        if(vote?["kind"] as! String == "downvote"){
-                            vote?.setObject("upvote", forKey: "kind")
-                            self.posts[sender.tag].incrementKey("steps", byAmount: 2)
-                            self.posts[sender.tag].saveInBackground()
-                            vote?.saveInBackground()
-                        }
-                    }
-                })
-            }
         }
+        
     }
     @IBAction func downVote(_ sender: UIButton) {
         /* major overhaul needed, no voted class. Store data inside the post object
          Also probably might need to use the localDataStore or whatever it's called*/
-        let query = PFQuery(className: "Voted")
-        query.whereKey("user", equalTo: PFUser.current()?.username! as Any)
-        query.whereKey("post", equalTo: posts[sender.tag].objectId as Any)
-        
-        query.countObjectsInBackground { (count: Int32, error: Error?) in
-            if(error==nil){
-                if(count==0){
-                    let voted = PFObject(className: "Voted")
-                    voted.setObject(PFUser.current()?.username! as Any, forKey: "user")
-                    voted.setObject(self.posts[sender.tag].objectId!, forKey: "post")
-                    voted.setObject("downvote", forKey: "kind")
-                    voted.saveInBackground()
-                    
-                    self.posts[sender.tag].incrementKey("steps", byAmount: -1)
-                    self.posts[sender.tag].saveInBackground(block: { (success:Bool,error: Error?) in
-                        if(success){
-                            print("downvoted")
-                        }
-                    })
-                    
-                    
-                }else{
-                    query.getFirstObjectInBackground(block: { (vote:PFObject?, error: Error?) in
-                        if(error==nil){
-                            if (vote?["kind"] as! String == "downvote"){
-                                vote?.deleteInBackground()
-                                self.posts[sender.tag].incrementKey("steps", byAmount: 1)
-                                self.posts[sender.tag].saveInBackground()
-                                print("this works now, you can upvote it again")
-                            }
-                            if(vote?["kind"] as! String == "upvote"){
-                                vote?.setObject("downvote", forKey: "kind")
-                                vote?.saveInBackground()
-                                
-                                self.posts[sender.tag].incrementKey("steps", byAmount:-2)
-                                self.posts[sender.tag].saveInBackground()
-                                print("should be -2")
-                            }
-                        }
-                    })
-                } 
-            }
+        let upVoters = self.posts[sender.tag]["upVoters"] as! [String]
+        let downVoters = self.posts[sender.tag]["downVoters"] as! [String]
+        let userName = PFUser.current()?.username
+        if(downVoters.contains(userName!)){
+            self.posts[sender.tag].remove(userName!, forKey: "downVoters")
+            self.posts[sender.tag].incrementKey("steps")
+            self.posts[sender.tag].saveInBackground()
+            print("unUpvoted")
             
-            
-            
-            
+        }else if(!downVoters.contains(userName!) && !upVoters.contains(userName!)) {
+            self.posts[sender.tag].add(userName!, forKey: "downVoters")
+            self.posts[sender.tag].incrementKey("steps", byAmount: -1)
+            self.posts[sender.tag].saveInBackground()
+            print("upvoted")
+        }else if(upVoters.contains(userName!)){
+            self.posts[sender.tag].remove(userName!, forKey: "upVoters")
+            self.posts[sender.tag].add(userName!, forKey: "downVoters")
+            self.posts[sender.tag].incrementKey("steps", byAmount: -2)
+            self.posts[sender.tag].saveInBackground()
         }
 
     }
