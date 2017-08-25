@@ -244,14 +244,25 @@
                                     <action selector="cancelButton:" destination="KIN-Z2-Asl" eventType="touchUpInside" id="DQ2-M8-FaR"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4zZ-qr-1W6">
+                                <rect key="frame" x="224" y="24" width="124" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="4zZ-qr-1W6" secondAttribute="trailing" constant="11" id="f6D-ES-BHx"/>
+                            <constraint firstItem="4zZ-qr-1W6" firstAttribute="top" secondItem="P7L-Uy-YUb" secondAttribute="bottom" constant="4" id="hSH-j7-DWp"/>
+                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="HEi-vl-bry" appends="YES" id="rX4-JO-AtL"/>
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="characterCountLabel" destination="4zZ-qr-1W6" id="VOh-ai-xqf"/>
                         <outlet property="postText" destination="XDa-0e-oID" id="zQ3-p0-bTv"/>
                     </connections>
                 </viewController>
@@ -347,7 +358,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2255" y="176"/>
+            <point key="canvasLocation" x="1468" y="915"/>
         </scene>
     </scenes>
 </document>

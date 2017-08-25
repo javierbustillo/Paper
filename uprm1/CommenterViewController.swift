@@ -47,6 +47,8 @@ class CommenterViewController: UIViewController,UITextViewDelegate {
         characterCountLabel.text = "\(textView.text.characters.count)"
         if(textView.text!.characters.count>140){
             characterCountLabel.textColor = UIColor.red
+        }else{
+            characterCountLabel.textColor = UIColor.black
         }
 
     }

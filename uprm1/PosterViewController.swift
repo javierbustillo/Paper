@@ -12,6 +12,7 @@ import Parse
 class PosterViewController: UIViewController, UITextViewDelegate {
 
 
+    @IBOutlet weak var characterCountLabel: UILabel!
     
     @IBOutlet weak var postText: UITextView!
     var textFlag: Int!
@@ -22,6 +23,7 @@ class PosterViewController: UIViewController, UITextViewDelegate {
         postText.text = "Write your post here"
         postText.textColor = UIColor.lightGray
         textFlag=0
+        characterCountLabel.text = ""
 
         // Do any additional setup after loading the view.
     }
@@ -40,6 +42,15 @@ class PosterViewController: UIViewController, UITextViewDelegate {
             postText.textColor = UIColor.lightGray
         }
     }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        characterCountLabel.text = "\(postText.text.characters.count)"
+        if(postText.text!.characters.count>140){
+            characterCountLabel.textColor = UIColor.red
+        }else{
+            characterCountLabel.textColor = UIColor.black
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -51,7 +62,7 @@ class PosterViewController: UIViewController, UITextViewDelegate {
         if(textFlag==0||postText.text.isEmpty){
             print("error should appear saying you need to write something")
         }
-        else if(postText.text!.characters.count>200){
+        else if(postText.text!.characters.count>140){
             print("Less characters dude")
         }
         else{
