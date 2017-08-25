@@ -27,7 +27,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view.
         PFGeoPoint.geoPointForCurrentLocation { (point:PFGeoPoint?, error:Error?) in
             if((error) != nil){
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
             }else{
                 self.refreshData(point: point!)
                 self.tableView.reloadData()
@@ -49,7 +49,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidAppear(_ animated: Bool) {
         PFGeoPoint.geoPointForCurrentLocation { (point:PFGeoPoint?, error:Error?) in
             if((error) != nil){
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
                 print("WHAT")
             }else{
                 self.refreshData(point: point!)
@@ -126,7 +126,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let query = PFQuery(className: "Post")
         
         query.order(byDescending: "createdAt")
-        query.whereKey("locat", nearGeoPoint: point, withinMiles: 2)
+        query.whereKey("locat", nearGeoPoint: point, withinMiles:5)
         query.limit = 20
         
         query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
