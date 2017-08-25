@@ -143,50 +143,61 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     @IBAction func upVote(_ sender: UIButton) {
-        let upVoters = self.posts[sender.tag]["upVoters"] as! [String]
-        let downVoters = self.posts[sender.tag]["downVoters"] as! [String]
+        var upVoters = self.posts[sender.tag].object(forKey: "upVoters") as! [String]
+        var downVoters = self.posts[sender.tag].object(forKey: "downVoters") as! [String]
         let userName = PFUser.current()?.username
         if(upVoters.contains(userName!)){
-            self.posts[sender.tag].remove(userName!, forKey: "upVoters")
+            //self.posts[sender.tag].remove(userName!, forKey: "upVoters")
             self.posts[sender.tag].incrementKey("steps", byAmount: -1)
-            self.posts[sender.tag].saveInBackground()
-            print("unUpvoted")
+            let ind = upVoters.index(of: userName!)
+            upVoters.remove(at: ind!)
+            self.posts[sender.tag].setObject(upVoters, forKey: "upVoters")
             
         }else if(!upVoters.contains(userName!) && !downVoters.contains(userName!)) {
-            self.posts[sender.tag].add(userName!, forKey: "upVoters")
             self.posts[sender.tag].incrementKey("steps")
-            self.posts[sender.tag].saveInBackground()
-            print("upvoted")
+            upVoters.append(userName!)
+            self.posts[sender.tag].setObject(upVoters, forKey: "upVoters")
+
         }else if(downVoters.contains(userName!)){
-            self.posts[sender.tag].remove(userName!, forKey: "downVoters")
-            self.posts[sender.tag].add(userName!, forKey: "upVoters")
+            let ind = downVoters.index(of: userName!)
+            downVoters.remove(at: ind!)
+            upVoters.append(userName!)
+            
+            self.posts[sender.tag].setObject(upVoters, forKey: "upVoters")
+            self.posts[sender.tag].setObject(downVoters, forKey: "downVoters")
             self.posts[sender.tag].incrementKey("steps", byAmount: 2)
-            self.posts[sender.tag].saveInBackground()
 
         }
+        self.posts[sender.tag].saveInBackground()
+
         
     }
     @IBAction func downVote(_ sender: UIButton) {
-        let upVoters = self.posts[sender.tag]["upVoters"] as! [String]
-        let downVoters = self.posts[sender.tag]["downVoters"] as! [String]
+        var upVoters = self.posts[sender.tag]["upVoters"] as! [String]
+        var downVoters = self.posts[sender.tag]["downVoters"] as! [String]
         let userName = PFUser.current()?.username
         if(downVoters.contains(userName!)){
-            self.posts[sender.tag].remove(userName!, forKey: "downVoters")
+            let ind = downVoters.index(of: userName!)
+            downVoters.remove(at: ind!)
+            self.posts[sender.tag].setObject(downVoters, forKey: "downVoters")
             self.posts[sender.tag].incrementKey("steps")
-            self.posts[sender.tag].saveInBackground()
-            print("unUpvoted")
             
         }else if(!downVoters.contains(userName!) && !upVoters.contains(userName!)) {
-            self.posts[sender.tag].add(userName!, forKey: "downVoters")
+            downVoters.append(userName!)
+            self.posts[sender.tag].setObject(downVoters, forKey: "downVoters")
             self.posts[sender.tag].incrementKey("steps", byAmount: -1)
-            self.posts[sender.tag].saveInBackground()
-            print("upvoted")
+
         }else if(upVoters.contains(userName!)){
-            self.posts[sender.tag].remove(userName!, forKey: "upVoters")
-            self.posts[sender.tag].add(userName!, forKey: "downVoters")
+            let ind = upVoters.index(of: userName!)
+            upVoters.remove(at: ind!)
+            downVoters.append(userName!)
+            
+            self.posts[sender.tag].setObject(upVoters, forKey: "upVoters")
+            self.posts[sender.tag].setObject(downVoters, forKey: "downVoters")
             self.posts[sender.tag].incrementKey("steps", byAmount: -2)
-            self.posts[sender.tag].saveInBackground()
         }
+        self.posts[sender.tag].saveInBackground()
+
 
     }
     
