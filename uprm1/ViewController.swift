@@ -169,6 +169,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         }
         self.posts[sender.tag].saveInBackground()
+        self.tableView.reloadData()
 
         
     }
@@ -197,6 +198,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.posts[sender.tag].incrementKey("steps", byAmount: -2)
         }
         self.posts[sender.tag].saveInBackground()
+        self.tableView.reloadData()
 
 
     }
