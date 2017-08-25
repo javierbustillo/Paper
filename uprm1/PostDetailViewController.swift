@@ -89,50 +89,60 @@ class PostDetailViewController: UIViewController,UITableViewDelegate, UITableVie
     }
     
     @IBAction func upVote(_ sender: UIButton) {
-        let upVoters = self.comments[sender.tag]["upVoters"] as! [String]
-        let downVoters = self.comments[sender.tag]["downVoters"] as! [String]
+        var upVoters = self.comments[sender.tag].object(forKey: "upVoters") as! [String]
+        var downVoters = self.comments[sender.tag].object(forKey: "downVoters") as! [String]
         let userName = PFUser.current()?.username
         if(upVoters.contains(userName!)){
-            self.comments[sender.tag].remove(userName!, forKey: "upVoters")
             self.comments[sender.tag].incrementKey("steps", byAmount: -1)
-            self.comments[sender.tag].saveInBackground()
-            print("unUpvoted")
+            let ind = upVoters.index(of: userName!)
+            upVoters.remove(at: ind!)
+            self.comments[sender.tag].setObject(upVoters, forKey: "upVoters")
             
         }else if(!upVoters.contains(userName!) && !downVoters.contains(userName!)) {
-            self.comments[sender.tag].add(userName!, forKey: "upVoters")
             self.comments[sender.tag].incrementKey("steps")
-            self.comments[sender.tag].saveInBackground()
-            print("upvoted")
+            upVoters.append(userName!)
+            self.comments[sender.tag].setObject(upVoters, forKey: "upVoters")
+            
         }else if(downVoters.contains(userName!)){
-            self.comments[sender.tag].remove(userName!, forKey: "downVoters")
-            self.comments[sender.tag].add(userName!, forKey: "upVoters")
+            let ind = downVoters.index(of: userName!)
+            downVoters.remove(at: ind!)
+            upVoters.append(userName!)
+            
+            self.comments[sender.tag].setObject(upVoters, forKey: "upVoters")
+            self.comments[sender.tag].setObject(downVoters, forKey: "downVoters")
             self.comments[sender.tag].incrementKey("steps", byAmount: 2)
-            self.comments[sender.tag].saveInBackground()
             
         }
+        self.comments[sender.tag].saveInBackground()
+        self.tableView.reloadData()
     }
 
     @IBAction func downVote(_ sender: UIButton) {
-        let upVoters = self.comments[sender.tag]["upVoters"] as! [String]
-        let downVoters = self.comments[sender.tag]["downVoters"] as! [String]
+        var upVoters = self.comments[sender.tag]["upVoters"] as! [String]
+        var downVoters = self.comments[sender.tag]["downVoters"] as! [String]
         let userName = PFUser.current()?.username
         if(downVoters.contains(userName!)){
-            self.comments[sender.tag].remove(userName!, forKey: "downVoters")
+            let ind = downVoters.index(of: userName!)
+            downVoters.remove(at: ind!)
+            self.comments[sender.tag].setObject(downVoters, forKey: "downVoters")
             self.comments[sender.tag].incrementKey("steps")
-            self.comments[sender.tag].saveInBackground()
-            print("unUpvoted")
             
         }else if(!downVoters.contains(userName!) && !upVoters.contains(userName!)) {
-            self.comments[sender.tag].add(userName!, forKey: "downVoters")
+            downVoters.append(userName!)
+            self.comments[sender.tag].setObject(downVoters, forKey: "downVoters")
             self.comments[sender.tag].incrementKey("steps", byAmount: -1)
-            self.comments[sender.tag].saveInBackground()
-            print("upvoted")
+            
         }else if(upVoters.contains(userName!)){
-            self.comments[sender.tag].remove(userName!, forKey: "upVoters")
-            self.comments[sender.tag].add(userName!, forKey: "downVoters")
+            let ind = upVoters.index(of: userName!)
+            upVoters.remove(at: ind!)
+            downVoters.append(userName!)
+            
+            self.comments[sender.tag].setObject(upVoters, forKey: "upVoters")
+            self.comments[sender.tag].setObject(downVoters, forKey: "downVoters")
             self.comments[sender.tag].incrementKey("steps", byAmount: -2)
-            self.comments[sender.tag].saveInBackground()
         }
+        self.comments[sender.tag].saveInBackground()
+        self.tableView.reloadData()
     }
     
     // MARK: - Navigation

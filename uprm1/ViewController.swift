@@ -147,7 +147,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var downVoters = self.posts[sender.tag].object(forKey: "downVoters") as! [String]
         let userName = PFUser.current()?.username
         if(upVoters.contains(userName!)){
-            //self.posts[sender.tag].remove(userName!, forKey: "upVoters")
             self.posts[sender.tag].incrementKey("steps", byAmount: -1)
             let ind = upVoters.index(of: userName!)
             upVoters.remove(at: ind!)
