@@ -11,6 +11,7 @@ import Parse
 
 class CommenterViewController: UIViewController,UITextViewDelegate {
    
+    @IBOutlet weak var characterCountLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     var textFlag: Int!
     var originalID: String!
@@ -23,7 +24,7 @@ class CommenterViewController: UIViewController,UITextViewDelegate {
         textView.text = "Write your post here"
         textView.textColor = UIColor.lightGray
         textFlag=0
-
+        characterCountLabel.text = ""
         // Do any additional setup after loading the view.
     }
     
@@ -42,6 +43,14 @@ class CommenterViewController: UIViewController,UITextViewDelegate {
         }
     }
 
+    func textViewDidChange(_ textView: UITextView) {
+        characterCountLabel.text = "\(textView.text.characters.count)"
+        if(textView.text!.characters.count>140){
+            characterCountLabel.textColor = UIColor.red
+        }
+
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
