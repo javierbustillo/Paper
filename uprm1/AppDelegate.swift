@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         Parse.initialize(with: configuration)
         PFUser.enableAutomaticUser()
+        PFUser.current()?.saveInBackground()
         
 
         
