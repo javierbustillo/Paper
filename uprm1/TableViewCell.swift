@@ -29,7 +29,7 @@ class TableViewCell: UITableViewCell {
             stepsLabel.text = ("\(posts["steps"]!)") as String
             upVoters = posts["upVoters"] as! [String]?
             downVoters = posts["downVoters"] as! [String]?
-            if upVoters.contains((userName)!){
+            if upVoters.contains(userName!){
                 upvoted = true
                 //change button
             }
