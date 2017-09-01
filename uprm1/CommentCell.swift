@@ -15,6 +15,7 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var upVote: UIButton!
     @IBOutlet weak var downVote: UIButton!
     @IBOutlet weak var stepsLabel: UILabel!
+    @IBOutlet weak var deleteButton: UIButton!
    
     var upVoted: Bool!
     var downVoted: Bool!
@@ -37,6 +38,9 @@ class CommentCell: UITableViewCell {
             if downVoters.contains(userName!){
                 downVoted = true
                 //change button
+            }
+            if comments["user"] as? String != userName{
+                deleteButton.isHidden = true
             }
 
         }

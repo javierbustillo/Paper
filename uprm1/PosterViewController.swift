@@ -68,7 +68,8 @@ class PosterViewController: UIViewController, UITextViewDelegate {
         else{
             PFGeoPoint.geoPointForCurrentLocation(inBackground: { (point: PFGeoPoint?, error: Error?) in
                 if(error==nil){
-                    let thisPost = Post(post: self.postText.text, steps: 0, locat: point!)
+                    let userName = PFUser.current()?.username
+                    let thisPost = Post(post: self.postText.text, steps: 0, locat: point!, user: userName!)
                     thisPost.poster()
                     self.dismiss(animated: true, completion: nil)
                 }else{
