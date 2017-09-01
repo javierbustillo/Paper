@@ -13,6 +13,8 @@ class PostDetailViewController: UIViewController,UITableViewDelegate, UITableVie
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var postText: UILabel!
+    @IBOutlet weak var deleteButton: UIButton!
+    
     var comments: [PFObject]!
     var posts: [PFObject]!
     var index: Int?
@@ -24,7 +26,11 @@ class PostDetailViewController: UIViewController,UITableViewDelegate, UITableVie
 
         let post = posts![index!]
         postText.text = post["post"] as? String
-        
+        let userName = PFUser.current()?.username
+        if(post["user"] as? String != userName){
+            deleteButton.isHidden = true
+        }
+
         refreshData()
         
         
@@ -143,6 +149,23 @@ class PostDetailViewController: UIViewController,UITableViewDelegate, UITableVie
         }
         self.comments[sender.tag].saveInBackground()
         self.tableView.reloadData()
+    }
+    @IBAction func deleteButton(_ sender: Any) {
+
+        let post = posts[index!]
+        post.deleteInBackground { (success: Bool, error: Error?) in
+            if(success){
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    @IBAction func commentDeleteButton(_ sender: UIButton) {
+        let comment = comments[sender.tag]
+        comment.deleteInBackground { (success: Bool, error: Error?) in
+            if(success){
+                self.refreshData()
+            }
+        }
     }
     
     // MARK: - Navigation

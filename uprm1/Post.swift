@@ -16,11 +16,13 @@ class Post: NSObject {
     var locat: PFGeoPoint?
     var upVoters: [String]? = []
     var downVoters: [String]? = []
+    var user: String?
     
-    init(post: String, steps: Int, locat: PFGeoPoint){
+    init(post: String, steps: Int, locat: PFGeoPoint, user: String){
         self.post = post
         self.steps = 0
         self.locat = locat
+        self.user = user
     }
     
     func poster(){
@@ -31,6 +33,7 @@ class Post: NSObject {
         post.setObject(locat!, forKey: "locat")
         post.setObject(upVoters!, forKey: "upVoters")
         post.setObject(downVoters!, forKey: "downVoters")
+        post.setObject(user!, forKey: "user")
         
         
         post.saveInBackground { (success: Bool, error: Error?) in
@@ -38,7 +41,7 @@ class Post: NSObject {
                 print("posted!")
             }
             else{
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
             }
         }
     

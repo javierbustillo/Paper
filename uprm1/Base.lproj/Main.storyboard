@@ -121,7 +121,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Post" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biD-73-jvD">
-                                <rect key="frame" x="16" y="72" width="343" height="235"/>
+                                <rect key="frame" x="16" y="72" width="343" height="199"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -170,17 +170,26 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hK7-QG-PB1">
-                                                    <rect key="frame" x="315" y="98" width="44" height="21"/>
+                                                    <rect key="frame" x="9" y="39" width="44" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJo-le-AsE">
+                                                    <rect key="frame" x="303" y="94" width="45" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Delete"/>
+                                                    <connections>
+                                                        <action selector="commentDeleteButton:" destination="gyq-gq-3Wa" eventType="touchUpInside" id="ik2-hl-sgN"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="commentLabel" destination="OQN-DG-W4Y" id="Vqe-D7-zPd"/>
                                             <outlet property="dateLabel" destination="u8B-T3-aIF" id="GWm-d6-Rfs"/>
+                                            <outlet property="deleteButton" destination="zJo-le-AsE" id="qhQ-uo-Z5l"/>
                                             <outlet property="downVote" destination="QLp-Tt-rhq" id="mDc-bm-niW"/>
                                             <outlet property="stepsLabel" destination="hK7-QG-PB1" id="6Kq-6a-8Ul"/>
                                             <outlet property="upVote" destination="yFa-pv-c1f" id="jhO-QX-aZh"/>
@@ -196,11 +205,20 @@
                                     <segue destination="s2f-dk-RRa" kind="presentation" identifier="segueToCommenter" id="pGq-lq-6oD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cja-Fh-wVq">
+                                <rect key="frame" x="17" y="277" width="45" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="deleteButton:" destination="gyq-gq-3Wa" eventType="touchUpInside" id="zM7-ct-t23"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="uvF-Rb-4fw"/>
                     <connections>
+                        <outlet property="deleteButton" destination="Cja-Fh-wVq" id="ZFV-Au-NO3"/>
                         <outlet property="postText" destination="biD-73-jvD" id="bsX-Gy-Yhi"/>
                         <outlet property="tableView" destination="xsV-nt-Uc6" id="Wwj-HU-Mhw"/>
                     </connections>

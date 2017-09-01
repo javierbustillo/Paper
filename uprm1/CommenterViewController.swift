@@ -71,7 +71,8 @@ class CommenterViewController: UIViewController,UITextViewDelegate {
             print("Less characters dude")
         }
         else{
-            let thisComment = Comment(comment: self.textView.text, steps: 0, originalID: originalID)
+            let userName = PFUser.current()?.username
+            let thisComment = Comment(comment: self.textView.text, steps: 0, originalID: originalID, user: userName!)
             thisComment.poster()
             view.endEditing(true)
             self.dismiss(animated: true, completion: nil)
