@@ -16,6 +16,7 @@ class TopPostsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshData()
 
         // Do any additional setup after loading the view.
     }
@@ -25,18 +26,23 @@ class TopPostsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func refreshData(point: PFGeoPoint){
+    func refreshData(){
         let query = PFQuery(className: "Post")
         
         query.order(byDescending: "steps")
-        query.whereKey("locat", nearGeoPoint: point, withinMiles:5)
+       // query.whereKey("locat", nearGeoPoint: point, withinMiles:5)
         query.limit = 20
+        query.whereKey("createdAt", greaterThan: SYSTEM_CLOCK-172800)
+        
         
         query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
             if let posts = posts{
                 self.posts = posts
                 //self.tableView.reloadData()
                 print("woo")
+                print(posts.count)
+                print(posts[0]["post"])
+                print(SYSTEM_CLOCK)
             } else {
                 // handle error
                 print("error")
