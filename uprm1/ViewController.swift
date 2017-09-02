@@ -14,7 +14,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     var posts: [PFObject]!
-    var vote: [PFObject]!
 
 
     override func viewDidLoad() {
