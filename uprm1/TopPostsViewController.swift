@@ -40,9 +40,6 @@ class TopPostsViewController: UIViewController {
                 self.posts = posts
                 //self.tableView.reloadData()
                 print("woo")
-                print(posts.count)
-                print(posts[0]["post"])
-                print(SYSTEM_CLOCK)
             } else {
                 // handle error
                 print("error")
