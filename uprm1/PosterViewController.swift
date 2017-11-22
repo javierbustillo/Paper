@@ -44,8 +44,8 @@ class PosterViewController: UIViewController, UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        characterCountLabel.text = "\(postText.text.characters.count)"
-        if(postText.text!.characters.count>140){
+        characterCountLabel.text = "\(postText.text.count)"
+        if(postText.text!.count>140){
             characterCountLabel.textColor = UIColor.red
         }else{
             characterCountLabel.textColor = UIColor.black
@@ -62,7 +62,7 @@ class PosterViewController: UIViewController, UITextViewDelegate {
         if(textFlag==0||postText.text.isEmpty){
             print("error should appear saying you need to write something")
         }
-        else if(postText.text!.characters.count>140){
+        else if(postText.text!.count>140){
             print("Less characters dude")
         }
         else{

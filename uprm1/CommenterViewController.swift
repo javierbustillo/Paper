@@ -44,8 +44,8 @@ class CommenterViewController: UIViewController,UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        characterCountLabel.text = "\(textView.text.characters.count)"
-        if(textView.text!.characters.count>140){
+        characterCountLabel.text = "\(textView.text.count)"
+        if(textView.text!.count>140){
             characterCountLabel.textColor = UIColor.red
         }else{
             characterCountLabel.textColor = UIColor.black
@@ -67,7 +67,7 @@ class CommenterViewController: UIViewController,UITextViewDelegate {
         if(textFlag==0||textView.text.isEmpty){
             print("error should appear saying you need to write something")
         }
-        else if(textView.text!.characters.count>140){
+        else if(textView.text!.count>140){
             print("Less characters dude")
         }
         else{
