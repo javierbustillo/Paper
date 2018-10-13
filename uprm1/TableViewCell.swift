@@ -15,13 +15,13 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var stepsLabel: UILabel!
     @IBOutlet weak var upVote: UIButton!
     @IBOutlet weak var downVote: UIButton!
-    var upVoters: [String]! = []
-    var downVoters: [String]! = []
+    @objc var upVoters: [String]! = []
+    @objc var downVoters: [String]! = []
     var upvoted: Bool! = false
     var downVoted: Bool! = false
-    let userName = PFUser.current()?.username
+    @objc let userName = PFUser.current()?.username
     
-    var posts: PFObject!{
+    @objc var posts: PFObject!{
         didSet{
             
             postLabel.text = posts["post"] as? String
@@ -44,7 +44,7 @@ class TableViewCell: UITableViewCell {
         
     }
     
-    func returnTime(createdAt : Date) -> String{
+    @objc func returnTime(createdAt : Date) -> String{
         let seconds = NSDate().timeIntervalSince(createdAt as Date)
         if(seconds < 60){
             return String("Just Now")

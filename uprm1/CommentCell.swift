@@ -19,11 +19,11 @@ class CommentCell: UITableViewCell {
    
     var upVoted: Bool!
     var downVoted: Bool!
-    var upVoters: [String]!
-    var downVoters: [String]!
-    let userName = PFUser.current()?.username
+    @objc var upVoters: [String]!
+    @objc var downVoters: [String]!
+    @objc let userName = PFUser.current()?.username
     
-    var comments: PFObject!{
+    @objc var comments: PFObject!{
         didSet{
             commentLabel.text = comments["comment"] as? String
             dateLabel.text =  "\(returnTime(createdAt: comments.createdAt!))" as String
@@ -46,7 +46,7 @@ class CommentCell: UITableViewCell {
         }
     }
     
-    func returnTime(createdAt : Date) -> String{
+    @objc func returnTime(createdAt : Date) -> String{
         let seconds = NSDate().timeIntervalSince(createdAt as Date)
         if(seconds < 60){
             return String("Just Now")

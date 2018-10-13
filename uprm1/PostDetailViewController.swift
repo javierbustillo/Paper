@@ -15,8 +15,8 @@ class PostDetailViewController: UIViewController,UITableViewDelegate, UITableVie
     @IBOutlet weak var postText: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     
-    var comments: [PFObject]!
-    var posts: [PFObject]!
+    @objc var comments: [PFObject]!
+    @objc var posts: [PFObject]!
     var index: Int?
     
     override func viewDidLoad() {
@@ -71,7 +71,7 @@ class PostDetailViewController: UIViewController,UITableViewDelegate, UITableVie
         
     }
 
-    func refreshData(){
+    @objc func refreshData(){
        
         let post = posts![index!]
 

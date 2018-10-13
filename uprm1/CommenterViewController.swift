@@ -14,7 +14,7 @@ class CommenterViewController: UIViewController,UITextViewDelegate {
     @IBOutlet weak var characterCountLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     var textFlag: Int!
-    var originalID: String!
+    @objc var originalID: String!
 
 
     override func viewDidLoad() {

@@ -11,21 +11,21 @@ import Parse
 
 class Comment: NSObject {
 
-    var comment: String?
+    @objc var comment: String?
     var steps: Int?
-    var originalID: String?
-    var upVoters: [String]? = []
-    var downVoters: [String]? = []
-    var user: String?
+    @objc var originalID: String?
+    @objc var upVoters: [String]? = []
+    @objc var downVoters: [String]? = []
+    @objc var user: String?
     
-    init(comment: String, steps: Int, originalID: String, user: String){
+    @objc init(comment: String, steps: Int, originalID: String, user: String){
         self.comment = comment
         self.steps=0
         self.originalID=originalID
         self.user = user
     }
     
-    func poster(){
+    @objc func poster(){
         let comment = PFObject(className: "Comment")
         comment.setObject(self.comment!, forKey: "comment")
         comment.setObject(steps!, forKey: "steps")

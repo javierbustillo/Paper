@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Fso-No-QDa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Fso-No-QDa">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -54,14 +52,14 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iry-uw-929">
-                                                    <rect key="frame" x="6" y="65" width="58" height="30"/>
+                                                    <rect key="frame" x="6" y="64.5" width="58" height="30"/>
                                                     <state key="normal" title="down"/>
                                                     <connections>
                                                         <action selector="downVote:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vqA-Wa-m7k"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zy-ka-X1C">
-                                                    <rect key="frame" x="8" y="41" width="45" height="21"/>
+                                                    <rect key="frame" x="8" y="41" width="45" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -122,7 +120,7 @@
                                 <state key="normal" title="Post"/>
                                 <connections>
                                     <action selector="postButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qgw-GB-WIP"/>
-                                    <segue destination="KIN-Z2-Asl" kind="presentation" id="amA-xW-D3V"/>
+                                    <segue destination="KIN-Z2-Asl" kind="presentation" identifier="SegueToPoster" id="amA-xW-D3V"/>
                                 </connections>
                             </button>
                         </barButtonItem>

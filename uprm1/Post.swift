@@ -11,21 +11,21 @@ import Parse
 
 class Post: NSObject {
     
-    var post: String?
+    @objc var post: String?
     var steps: Int?
-    var locat: PFGeoPoint?
-    var upVoters: [String]? = []
-    var downVoters: [String]? = []
-    var user: String?
+    @objc var locat: PFGeoPoint?
+    @objc var upVoters: [String]? = []
+    @objc var downVoters: [String]? = []
+    @objc var user: String?
     
-    init(post: String, steps: Int, locat: PFGeoPoint, user: String){
+    @objc init(post: String, steps: Int, locat: PFGeoPoint, user: String){
         self.post = post
         self.steps = 0
         self.locat = locat
         self.user = user
     }
     
-    func poster(){
+    @objc func poster(){
         let post = PFObject(className: "Post")
         
         post.setObject(self.post!, forKey: "post")

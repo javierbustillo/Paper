@@ -8,57 +8,41 @@
 
 import UIKit
 import Parse
+import Alamofire
+import MapKit
+import CoreLocation
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     
-    var posts: [PFObject]!
-    var vote: [PFObject]!
+    @objc var posts: [PFObject]!
+    @objc var vote: [PFObject]!
+    
+    let url = "http://127.0.0.1:8000/"
+    var coord: CLLocationCoordinate2D!
+    let locationManager = CLLocationManager()
 
-
+    
     override func viewDidLoad() {
-        
-        
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        
-        // Do any additional setup after loading the view.
-        PFGeoPoint.geoPointForCurrentLocation { (point:PFGeoPoint?, error:Error?) in
-            if((error) != nil){
-                print(error?.localizedDescription as Any)
-            }else{
-                self.refreshData(point: point!)
-                self.tableView.reloadData()
 
-            }
-        }
-
-        
         let refreshControl = UIRefreshControl()
         
-        refreshControl.addTarget(self, action:#selector(refreshAction),for: UIControlEvents.valueChanged)
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.startUpdatingLocation()
+        }
+        refreshControl.addTarget(self, action:#selector(refreshAction),for: UIControl.Event.valueChanged)
         self.tableView.insertSubview(refreshControl, at: 0)
         
-       
-        
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        PFGeoPoint.geoPointForCurrentLocation { (point:PFGeoPoint?, error:Error?) in
-            if((error) != nil){
-                print(error?.localizedDescription as Any)
-                print("WHAT")
-            }else{
-                self.refreshData(point: point!)
-            }
-        }
     }
     
    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -94,54 +78,40 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
 
-    func refreshAction(refreshControl: UIRefreshControl) {
+    @objc func refreshAction(refreshControl: UIRefreshControl) {
         
-        PFGeoPoint.geoPointForCurrentLocation { (point:PFGeoPoint?, error:Error?) in
-            if((error) != nil){
-                print(error?.localizedDescription as Any)
-            }else{
-                let url = NSURL(self.refreshData(point: point!))
-                let request = URLRequest(url: url as URL)
-                
-                
-                let session = URLSession(
-                    configuration: URLSessionConfiguration.default,
-                    delegate:nil,
-                    delegateQueue:OperationQueue.main
-                )
-                
-                let task : URLSessionDataTask = session.dataTask(with: request,completionHandler: { (data, response, error) in
-                    
-                    self.tableView.reloadData()
-                    refreshControl.endRefreshing()
-                });
-                task.resume()
-
-                
-            }
-        }
         
-           }
+    }
+        
+    
     func refreshData(point: PFGeoPoint){
-        let query = PFQuery(className: "Post")
         
-        query.order(byDescending: "createdAt")
-        query.whereKey("locat", nearGeoPoint: point, withinMiles:5)
-        query.limit = 20
-        
-        query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
-            if let posts = posts{
-                self.posts = posts
-                self.tableView.reloadData()
-                print("woo")
-            } else {
-                // handle error
-                print("error")
-                
-            }
-        }
 
     }
+    
+    func getPosts(coord: CLLocationCoordinate2D){
+        let latitude = coord.latitude
+        let longitude = coord.longitude
+        let endpoint = "\(self.url)posts?latitude=\(latitude)&longitude=\(longitude)"
+        
+        Alamofire.request(endpoint, method: .get).responseJSON { (response) in
+            //read response
+        }
+        
+        
+        
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        getPosts(coord: locValue)
+        self.coord = locValue
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        manager.stopUpdatingLocation()
+    }
+    
+    
     @IBAction func upVote(_ sender: UIButton) {
         var upVoters = self.posts[sender.tag].object(forKey: "upVoters") as! [String]
         var downVoters = self.posts[sender.tag].object(forKey: "downVoters") as! [String]
@@ -218,6 +188,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             postDetailVC.posts = posts
             postDetailVC.index = index
             
+        }
+        
+        if segue.identifier == "SegueToPoster"{
+            let posterVC = segue.destination as! PosterViewController
+            posterVC.coord = self.coord
         }
     }
 

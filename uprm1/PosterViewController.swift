@@ -8,10 +8,13 @@
 
 import UIKit
 import Parse
+import CoreLocation
+import Alamofire
 
 class PosterViewController: UIViewController, UITextViewDelegate {
 
-
+    var coord: CLLocationCoordinate2D!
+    let url = "http://127.0.0.1:8000/"
     @IBOutlet weak var characterCountLabel: UILabel!
     
     @IBOutlet weak var postText: UITextView!
@@ -66,16 +69,18 @@ class PosterViewController: UIViewController, UITextViewDelegate {
             print("Less characters dude")
         }
         else{
-            PFGeoPoint.geoPointForCurrentLocation(inBackground: { (point: PFGeoPoint?, error: Error?) in
-                if(error==nil){
-                    let userName = PFUser.current()?.username
-                    let thisPost = Post(post: self.postText.text, steps: 0, locat: point!, user: userName!)
-                    thisPost.poster()
-                    self.dismiss(animated: true, completion: nil)
-                }else{
-                    print("try again(insert error popup)")
-                }
-            })
+            let endpoint = "\(url)posts/"
+            
+            let parameters = [
+                "text": postText.text!,
+                "posted_by": 1,
+                "latitude": coord.latitude,
+                "longitude": coord.longitude,
+                ] as [String : Any]
+            
+            Alamofire.request(endpoint, method: .post, parameters: parameters).responseJSON { (response) in
+                
+            }
             
 
         }
